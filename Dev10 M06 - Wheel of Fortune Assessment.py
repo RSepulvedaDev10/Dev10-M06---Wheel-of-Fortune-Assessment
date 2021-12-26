@@ -71,7 +71,6 @@ while playGame == True:
             
             while playerTurn != 5:
             
-                incorrectGuess = False
                 if playerTurn == 4:
                     playerTurn = 1
             
@@ -79,64 +78,25 @@ while playGame == True:
                 spinResult = spinWheel()
             
                 if spinResult == 0:
-                    print(f"You landed on 'Bankrupt', and you lose your balance for the round.")
+                    print(f"You landed on 'Bankrupt', and your balance has been reset to 0.")
                     roundBalance[playerTurn - 1] = 0
+                    playerBank[playerTurn - 1] = 0
+                    print(f"Moving on to the next player.")
+                    playerTurn += 1
                     break
                 
                 elif spinResult == 1:
                     print(f"You landed on 'Lose a Turn'. Your turn is over.")
+                    print(f"Moving on to the next player.")
+                    playerTurn += 1
                     break
                 
                 else:
                     print(f"You landed on ${str(spinResult)}.")
                 
-                while incorrectGuess == False:
+                while (True):
                 
                     displayWord(selectedWord)
-                    consonantGuess = input("Please enter your guess for the puzzle: ").lower()
-            
-                    if consonantGuess.isnumeric() or len(consonantGuess) > 1 or len(consonantGuess) <= 0 or consonantGuess in guessesMade or consonantGuess in vowel:
-                        print(f"Invalid guess.")
-                        continue
-                    
-                    elif consonantGuess in selectedWord:
-                        guessesMade.append(consonantGuess)
-                        print(f"Correct! '{consonantGuess}' is in the puzzle.")
-                        roundBalance[playerTurn - 1] += spinResult
-                        displayWord(selectedWord)
-                    else:
-                        guessesMade.append(consonantGuess)
-                        print(f"Sorry. '{consonantGuess}' is not in the puzzle")
-                        incorrectGuess == True
-                   
-                    if roundBalance[playerTurn - 1] >= 250:
-                        vowelPrompt = input("Would you like to buy a vowel (y/n)? ").lower()
-                    
-                        if vowelPrompt == 'y':
-                            roundBalance[playerTurn - 1] -= 250
-                            vowelGuess = input("Please enter your vowel guess for the puzzle: ").lower()
-                       
-                            if vowelGuess.isnumeric() or len(vowelGuess) > 1 or len (vowelGuess) <= 0 or vowelGuess in guessesMade:
-                                print(f"Invalid guess.")
-                                continue
-                            
-                            elif vowelGuess in selectedWord:
-                                guessesMade.append(vowelGuess)
-                                print(f"Correct! '{vowelGuess}' is in the puzzle.")
-                                displayWord(selectedWord)
-                                
-                            else:
-                                guessesMade.append(vowelGuess)
-                                print (f"Sorry. '{consonantGuess}' is not in the puzzle")
-                                incorrectGuess == True 
-                                  
-                        elif vowelPrompt == 'n':
-                            print(f"{playerName[playerTurn - 1]} has elected to not buy a vowel.")
-                            break
-                        
-                        else:
-                            print(f"Invalid input.")
-                            continue
                     
                     solvePrompt = input("Would you like to solve the puzzle (y/n)? ").lower()
                 
@@ -149,23 +109,85 @@ while playGame == True:
                         
                         elif solveGuess == selectedWord:
                             print(f"{solveGuess} was the correct answer. Great job")
+                            roundBalance[playerTurn - 1] += spinResult
                             print(f"{playerName[playerTurn - 1]} has earned ${roundBalance[playerTurn - 1]} from this round")
                             playerBank[playerTurn - 1] += roundBalance[playerTurn - 1]
-                            solvedWord == True
+                            solvedWord = True
+                            break
                             
                         else:
                             print(f"Sorry. But {solveGuess} was not the correct answer.")
-                            incorrectGuess == True  
+                            break  
                             
                     elif solvePrompt == 'n':
                         print(f"{playerName[playerTurn - 1]} has elected to not solve the puzzle.")
-                        
+
                     else:
                         print(f"Invalid input")
                         continue
                     
-                                                     
+                    consonantGuess = input("Please enter your guess for the puzzle: ").lower()
+            
+                    if consonantGuess.isnumeric() or len(consonantGuess) > 1 or len(consonantGuess) <= 0 or consonantGuess in guessesMade or consonantGuess in vowel:
+                        print(f"Invalid guess.")
+                        continue
+                    
+                    elif consonantGuess in selectedWord:
+                        guessesMade.append(consonantGuess)
+                        print(f"Correct! '{consonantGuess}' is in the puzzle.")
+                        roundBalance[playerTurn - 1] += spinResult
+                        
+                    else:
+                        guessesMade.append(consonantGuess)
+                        print(f"Sorry. '{consonantGuess}' is not in the puzzle")
+                        break
+                        
+                    if roundBalance[playerTurn - 1] >= 250:
+                        vowelPrompt = input("Would you like to buy a vowel (y/n)? ").lower()
+                    
+                        if vowelPrompt == 'y':
+                            roundBalance[playerTurn - 1] -= 250
+                            vowelGuess = input("Please enter your vowel guess for the puzzle: ").lower()
+                       
+                            if vowelGuess.isnumeric() or len(vowelGuess) > 1 or len (vowelGuess) <= 0 or vowelGuess in guessesMade:
+                                print(f"Invalid guess.")
+                                print(guessesMade)
+                                continue
+                            
+                            elif vowelGuess in selectedWord:
+                                guessesMade.append(vowelGuess)
+                                print(f"Correct! '{vowelGuess}' is in the puzzle.")
+                                
+                            else:
+                                guessesMade.append(vowelGuess)
+                                print (f"Sorry. '{vowelGuess}' is not in the puzzle")
+                                break 
+                                  
+                        elif vowelPrompt == 'n':
+                            print(f"{playerName[playerTurn - 1]} has elected to not buy a vowel.")
+                        
+                        else:
+                            print(f"Invalid input.")
+                            continue
+                        
+                    endTurnPrompt = input("Would you like to end your turn (y/n)? ")
+                    
+                    if endTurnPrompt == 'y':
+                        print(f"{playerName[playerTurn - 1]} has elected to end their turn.")
+                        break
+                                  
+                    elif endTurnPrompt == 'n':
+                        print(f"{playerName[playerTurn - 1]} has elected to continue their turn.")
+                        
+                    else:
+                        print(f"Invalid input.")
+                        continue
+                    
+                if solvedWord == True:
+                    break
+                                                        
                 print(f"Here are the results from the current round: {playerName[0]}:${roundBalance[0]}, {playerName[1]}:${roundBalance[1]}, {playerName[2]}:${roundBalance[2]}")
+                print(f"These are the guesses made currently in the round, {guessesMade}")
                 print(f"Moving on to the next player.")
                 playerTurn += 1
         
@@ -181,19 +203,35 @@ while playGame == True:
     
     maxBank = max(playerBank)
     maxIndex = playerBank.index(maxBank)
+    finalPrize = 0
     
     print(f"{playerName[maxIndex]} is the winner and is moving on to the final round")
     
-    finalInitialize = input(f"{playerName[maxIndex]}, press 'Enter' to start the final round ")
+    finalInitialize = input(f"{playerName[maxIndex]}, press 'Enter' to spin for the final prize and start the final round")
+    
+    spinResult = spinWheel()
+    
+    if spinResult == 0:
+        continue
+    elif spinResult == 1:
+        continue
+    else:
+        print(f"The final prize has been stored good luck.")
+        finalPrize += (spinResult * 20)
+    
+    print(f"{playerName[maxIndex]}, here is your final word")
     
     selectedWord = random.choice(wordList).lower()
     guessesMade = ['r', 's', 't', 'l', 'n', 'e']
+    
+    print(f"We have entered these letters already: {guessesMade}, you need to enter 3 more consonants and a vowel.")
+    
     displayWord(selectedWord)
     
     for x in range (0, 4):
         if x == 3:
             while(True):
-                vowelGuess = input("Please enter a consonant: ")
+                vowelGuess = input("Please enter a vowel: ")
                 if vowelGuess.isnumeric() or len(vowelGuess) > 1 or len(vowelGuess) <= 0 or vowelGuess in guessesMade:
                     print("Invalid input.")
                     continue
@@ -213,11 +251,21 @@ while playGame == True:
             
     displayWord(selectedWord)
     
-    finalGuess = input('Please enter your final guess on the word ').lower()
+    print(f"You have one guess to solve the puzzle. Good luck!")
+    
+    finalGuess = input('Please enter your final guess on the puzzle word: ').lower()
     
     if finalGuess == selectedWord:
         print(f"You have correctly guessed the prize word: {selectedWord}. Congratulations!")
+        print(f"You final prize of ${finalPrize} will be added to your total.")
+        maxBank += finalPrize
     else:
         print(f"You have not guessed the word correctly. The prize word was {selectedWord}.")
+        print(f"You unfortunately have missed out on the final prize of ${finalPrize}")
+    
+    print(f"{playerName[maxIndex]} has won a total prize of ${maxBank}")
+    print(f"Thank you for playing Wheel of Fortune!")
+        
+    quit()
     
     
