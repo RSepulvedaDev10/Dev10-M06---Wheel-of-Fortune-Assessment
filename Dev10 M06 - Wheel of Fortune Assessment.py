@@ -213,8 +213,10 @@ while playGame == True:
     
     if spinResult == 0:
         continue
+    
     elif spinResult == 1:
         continue
+    
     else:
         print(f"The final prize has been stored good luck.")
         finalPrize += (spinResult * 20)
@@ -229,17 +231,22 @@ while playGame == True:
     displayWord(selectedWord)
     
     for x in range (0, 4):
+        
         if x == 3:
             while(True):
+                
                 vowelGuess = input("Please enter a vowel: ")
                 if vowelGuess.isnumeric() or len(vowelGuess) > 1 or len(vowelGuess) <= 0 or vowelGuess in guessesMade:
                     print("Invalid input.")
                     continue
+                
                 else:
                     guessesMade.append(vowelGuess)
                     break
+                
         else:
             while(True):
+                
                 consonantGuess = input("Please enter a consonant: ")
                 
                 if consonantGuess.isnumeric() or len(consonantGuess) > 1 or len(consonantGuess) <= 0 or consonantGuess in guessesMade or consonantGuess in vowel:
@@ -259,6 +266,7 @@ while playGame == True:
         print(f"You have correctly guessed the prize word: {selectedWord}. Congratulations!")
         print(f"You final prize of ${finalPrize} will be added to your total.")
         maxBank += finalPrize
+        
     else:
         print(f"You have not guessed the word correctly. The prize word was {selectedWord}.")
         print(f"You unfortunately have missed out on the final prize of ${finalPrize}")
