@@ -43,7 +43,6 @@ def spinWheel():
     else:
         return spin * 50
     
-print(wheel)
 while playGame == True:
     
     #Starting the game and naming the contestants
@@ -94,7 +93,6 @@ while playGame == True:
                 else:
                     print(f"You landed on ${str(spinResult)}.\n")
                 
-                print(spinResult)
                 while (True):
                 
                     displayWord(selectedWord)
