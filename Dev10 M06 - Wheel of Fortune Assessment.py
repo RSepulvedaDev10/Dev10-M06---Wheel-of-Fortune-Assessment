@@ -73,30 +73,29 @@ while playGame == True:
             
                 if playerTurn == 4:
                     playerTurn = 1
-            
-                spinInitialize = input(f"\nIt is currently {playerName[playerTurn - 1]}'s turn. Press 'Enter' to spin the wheel.")
-                spinResult = spinWheel()
-            
-                if spinResult == 0:
-                    print(f"You landed on 'Bankrupt', and your balance has been reset to 0.\n")
-                    roundBalance[playerTurn - 1] = 0
-                    playerBank[playerTurn - 1] = 0
-                    print(f"Moving on to the next player.\n")
-                    playerTurn += 1
-                    break
-                
-                elif spinResult == 1:
-                    print(f"You landed on 'Lose a Turn'. Your turn is over.\n")
-                    print(f"Moving on to the next player.\n")
-                    playerTurn += 1
-                    break
-                
-                else:
-                    print(f"You landed on ${str(spinResult)}.\n")
                 
                 while (True):
+                    
+                    spinInitialize = input(f"\nIt is currently {playerName[playerTurn - 1]}'s turn. Press 'Enter' to spin the wheel.")
+                    spinResult = spinWheel()
+            
+                    if spinResult == 0:
+                        print(f"You landed on 'Bankrupt', and your balance has been reset to 0.\n")
+                        roundBalance[playerTurn - 1] = 0
+                        playerBank[playerTurn - 1] = 0
+                        print(f"Moving on to the next player.\n")
+                        playerTurn += 1
+                        break
                 
-                    displayWord(selectedWord)
+                    elif spinResult == 1:
+                        print(f"You landed on 'Lose a Turn'. Your turn is over.\n")
+                        print(f"Moving on to the next player.\n")
+                        playerTurn += 1
+                        break
+                
+                    else:
+                        print(f"You landed on ${str(spinResult)}.\n")
+                        displayWord(selectedWord)
                     
                     solvePrompt = input("\nWould you like to solve the puzzle (y/n)? ").lower()
                 
@@ -235,7 +234,7 @@ while playGame == True:
         if x == 3:
             while(True):
                 
-                vowelGuess = input("Please enter a vowel: ")
+                vowelGuess = input("\nPlease enter a vowel: ")
                 if vowelGuess.isnumeric() or len(vowelGuess) > 1 or len(vowelGuess) <= 0 or vowelGuess in guessesMade:
                     print("Invalid input.\n")
                     continue
@@ -247,7 +246,7 @@ while playGame == True:
         else:
             while(True):
                 
-                consonantGuess = input("Please enter a consonant: ")
+                consonantGuess = input("\nPlease enter a consonant: ")
                 
                 if consonantGuess.isnumeric() or len(consonantGuess) > 1 or len(consonantGuess) <= 0 or consonantGuess in guessesMade or consonantGuess in vowel:
                     print("Invalid input.\n")
