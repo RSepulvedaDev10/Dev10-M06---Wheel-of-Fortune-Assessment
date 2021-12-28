@@ -148,7 +148,7 @@ while playGame == True:
                             roundBalance[playerTurn - 1] -= 250
                             vowelGuess = input("Please enter your vowel guess for the puzzle: ").lower()
                        
-                            if vowelGuess.isnumeric() or len(vowelGuess) > 1 or len (vowelGuess) <= 0 or vowelGuess in guessesMade:
+                            if vowelGuess.isnumeric() or len(vowelGuess) > 1 or len (vowelGuess) <= 0 or vowelGuess in guessesMade or vowelGuess in consonant:
                                 print(f"Invalid guess.\n")
                                 print(guessesMade)
                                 continue
@@ -235,7 +235,7 @@ while playGame == True:
             while(True):
                 
                 vowelGuess = input("\nPlease enter a vowel: ")
-                if vowelGuess.isnumeric() or len(vowelGuess) > 1 or len(vowelGuess) <= 0 or vowelGuess in guessesMade:
+                if vowelGuess.isnumeric() or len(vowelGuess) > 1 or len(vowelGuess) <= 0 or vowelGuess in guessesMade or vowelGuess in consonant:
                     print("Invalid input.\n")
                     continue
                 
